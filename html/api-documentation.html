@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция: CleanBusiness API</title>
+    
+    <!-- Подсветка синтаксиса Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 40px 48px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+            .container {
+                padding: 24px 20px;
+            }
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: #0f172a;
+            border-left: 4px solid #28a745;
+            padding-left: 20px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            margin: 32px 0 16px 0;
+            color: #1e293b;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin: 24px 0 12px 0;
+            color: #334155;
+        }
+        
+        .disclaimer {
+            background: #fef9e3;
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #92400e;
+            font-style: italic;
+        }
+        
+        .target-audience {
+            background: #eef2ff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        
+        ul, ol {
+            margin: 12px 0 12px 28px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .note {
+            background: #f1f5f9;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-style: italic;
+            margin: 16px 0;
+            font-size: 14px;
+            color: #475569;
+        }
+        
+        .screenshot {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #4b5563;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        /* Специальный класс для первого скриншота — уменьшение на 50% */
+        .screenshot-small img {
+            max-width: 50%;
+            height: auto;
+        }
+        
+        /* Специальный класс для Рисунка 4 — увеличенный размер */
+        .screenshot-fig4 img {
+            width: 1200px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .screenshot-caption {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+        
+        pre {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 13px;
+            margin: 16px 0;
+            position: relative;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Стиль для подсветки */
+        .highlight {
+            background-color: #fef9c3;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+        }
+        
+        a {
+            color: #28a745;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Инструкция: как проверить бизнес-данные через CleanBusiness API</h1>
+    
+    <div class="disclaimer">
+        Инструкция создана для вымышленного API. CleanBusiness API не существует в реальности. Скриншоты и ссылка в разделе «Получение API-ключа» являются вымышленными. Способы связи в разделе «Обращение в службу поддержки» также являются вымышленными.
+    </div>
+    
+    <div class="target-audience">
+        <strong>На кого рассчитан данный документ:</strong> документ рассчитан на разработчика, который понимает, что такое JSON, и умеет составлять JSON-запросы.
+    </div>
+    
+    <p>Клиенты компании предоставляют свои персональные данные, необходимые для бизнеса. Иногда клиент может допустить ошибку в своих данных. Например, неправильно записать номер телефона. В таком случае менеджер не сможет связаться с клиентом.</p>
+    
+    <p><strong>CleanBusiness API</strong> позволяет проверять корректность данных, которые дают клиенты компании.</p>
+    
+    <p>API поддерживает проверку четырёх типов данных:</p>
+    <ul>
+        <li>Email</li>
+        <li>Телефон</li>
+        <li>ИНН</li>
+        <li>Адрес</li>
+    </ul>
+    
+    <p>Проверка данных состоит из нескольких этапов:</p>
+    <ul>
+        <li>Получение API-ключа</li>
+        <li>Создание и отправка запроса в Postman</li>
+        <li>Анализ ответа</li>
+    </ul>
+    
+    <h2>Получение API-ключа</h2>
+    <ol>
+        <li>Перейдите на сайт <a href="https://cleanbusiness.ru">https://cleanbusiness.ru</a></li>
+        <li>Войдите в личный кабинет или зарегистрируйтесь.</li>
+        <li>Нажмите «Создать API-ключ».
+            <div class="screenshot screenshot-small">
+                <img src="images/image6.png" alt="Создание API-ключа">
+                <div class="screenshot-caption">Рисунок 1. Кнопка «Создать API-ключ»</div>
+            </div>
+        </li>
+        <li>Нажмите на «Копировать».
+            <div class="screenshot">
+                <img src="images/image4.png" alt="Копирование API-ключа">
+                <div class="screenshot-caption">Рисунок 2. Копирование API-ключа</div>
+            </div>
+        </li>
+    </ol>
+    
+    <h2>Создание и отправка запроса в Postman</h2>
+    <ol>
+        <li>Перейдите на сайт <a href="https://www.postman.com/">https://www.postman.com/</a></li>
+        <li>Нажмите на «Workspaces» и выберите рабочее пространство (workspace) с вашим именем.
+            <div class="note">Примечание: рабочее пространство с вашим именем создаётся автоматически после регистрации в Postman.</div>
+            <div class="screenshot">
+                <img src="images/image8.png" alt="Выбор рабочего пространства">
+                <div class="screenshot-caption">Рисунок 3. Выбор рабочего пространства</div>
+            </div>
+        </li>
+        <li>Нажмите на иконку «+» и выберите «HTTP».
+            <div class="screenshot screenshot-fig4">
+                <img src="images/image12.png" alt="Создание HTTP-запроса">
+                <div class="screenshot-caption">Рисунок 4. Создание HTTP-запроса</div>
+            </div>
+        </li>
+        <li>Заполните поля:
+            <ul>
+                <li>Выберите метод <strong>POST</strong>.
+                    <div class="note">Выберите метод POST, потому что данные отправляются в теле запроса, а не в URL.</div>
+                </li>
+                <li>Скопируйте <code>https://api.cleanbusiness.ru/v1/validate</code> и вставьте в поле URL</li>
+            </ul>
+            <div class="screenshot">
+                <img src="images/image9.png" alt="Заполнение URL и метода">
+                <div class="screenshot-caption">Рисунок 5. Выбор метода POST и ввод URL</div>
+            </div>
+        </li>
+        <li>Перейдите на вкладку «Headers».
+            <div class="screenshot">
+                <img src="images/image10.png" alt="Вкладка Headers">
+                <div class="screenshot-caption">Рисунок 6. Вкладка Headers</div>
+            </div>
+        </li>
+        <li>Добавьте две строки:
+            <ul>
+                <li><strong>Key</strong>: X-API-Key, <strong>Value</strong>: ваш скопированный ключ.</li>
+                <li><strong>Key</strong>: Content-Type, <strong>Value</strong>: application/json</li>
+            </ul>
+            <div class="screenshot">
+                <img src="images/image3.png" alt="Заполнение заголовков">
+                <div class="screenshot-caption">Рисунок 7. Заполнение заголовков</div>
+            </div>
+        </li>
+        <li>Перейдите на вкладку «Body».
+            <div class="screenshot">
+                <img src="images/image11.png" alt="Вкладка Body">
+                <div class="screenshot-caption">Рисунок 8. Вкладка Body</div>
+            </div>
+        </li>
+        <li>Проверьте, что выбрано «raw» и «JSON».
+            <div class="screenshot">
+                <img src="images/image1.png" alt="Выбор raw и JSON">
+                <div class="screenshot-caption">Рисунок 9. Выбор raw и JSON</div>
+            </div>
+        </li>
+        <li>Вставьте запрос в формате JSON в текстовое поле.
+            <div class="screenshot">
+                <img src="images/image2.png" alt="Вставка JSON-запроса">
+                <div class="screenshot-caption">Рисунок 10. Вставка JSON-запроса</div>
+            </div>
+        </li>
+        <li>Нажмите на кнопку «Send» для отправки запроса. После отправки ответ отобразится в блоке «Response».
+            <div class="screenshot">
+                <img src="images/image5.png" alt="Отправка запроса и ответ">
+                <div class="screenshot-caption">Рисунок 11. Отправка запроса и получение ответа</div>
+            </div>
+        </li>
+    </ol>
+    
+    <h2>Анализ ответа</h2>
+    <p>Результат проверки данных отобразится в объекте «results».</p>
+    
+    <pre><code class="language-json">{
+  <span class="highlight">"results"</span>: {
+    "email": {
+      "input": "ivanov@gmial.com",
+      "valid": true,
+      "corrected": "ivanov@gmail.com",
+      "details": {
+        "format_ok": true,
+        "mx_exists": true,
+        "autocorrect_applied": true
+      }
+    }
+  },
+  "request_id": "req_email_123"
+}</code></pre>
+    
+    <h3>Успешная проверка данных</h3>
+    <p>Если данные прошли проверку, в поле «valid» отобразится «true».</p>
+    
+    <pre><code class="language-json">{
+  "results": {
+    "phone": {
+      "input": "8(495)123-45-67",
+      <span class="highlight">"valid": true</span>,
+      "normalized": "+74951234567",
+      "details": {
+        "format_ok": true,
+        "country": "RU",
+        "operator": "МТС"
+      }
+    }
+  },
+  "request_id": "req_abc123"
+}</code></pre>
+    
+    <h3>Ошибка при проверке данных</h3>
+    <p>Если данные не прошли проверку, в ответе отобразится:</p>
+    <ul>
+        <li>В поле «valid» отобразится «false».</li>
+        <li>В поле «code» отобразится код ошибки.</li>
+        <li>В поле «message» отобразится причина ошибки.</li>
+    </ul>
+    
+    <pre><code class="language-json">{
+  "results": {
+    "inn": {
+      "input": "1234567890",
+      <span class="highlight">"valid": false</span>,
+      "error": {
+        <span class="highlight">"code": "INN_NOT_FOUND",
+        "message": "ИНН не найден в базе ФНС"</span>
+      }
+    }
+  },
+  "request_id": "req_ghi789"
+}</code></pre>
+    
+    <h2>Справка по ошибкам запросов (HTTP-статусы)</h2>
+    <p>Ответ может поступить без объекта «results» и с числом в поле «code».</p>
+    <p>В таком случае ошибка возникла не из-за некорректных данных (например, неверного email или ИНН), а из-за того, что сам HTTP-запрос был составлен неправильно.</p>
+    <p>Например, отсутствует обязательное поле, неверный формат JSON, не передан API-ключ и т.д.</p>
+    
+    <pre><code class="language-json">{
+  "error": {
+    "code": 401,
+    "message": "Invalid or missing API key"
+  }
+}</code></pre>
+    
+    <h3>Таблица: как отличить ошибку данных от ошибки запроса</h3>
+    <div class="table-wrapper">
+         <table>
+            <thead>
+                 <tr><th>Признак</th><th>Ошибка в данных (валидация)</th><th>Ошибка в HTTP-запросе</th></tr>
+            </thead>
+            <tbody>
+                 <tr><td><strong>Наличие «results»</strong></td><td>Есть</td><td>Нет</td></tr>
+                 <tr><td><strong>Поле «valid»</strong></td><td>Есть («true» — данные корректны, «false» — ошибка)</td><td>Нет</td></tr>
+                 <tr><td><strong>Поле code</strong></td><td>Текстовый код (например, INVALID_FORMAT, INN_NOT_FOUND)</td><td>Числовой код (например, 400, 401, 500)</td></tr>
+                 <tr><td><strong>Что означает</strong></td><td>Данные проверены, но некорректны</td><td>Сам запрос составлен неправильно (не передан ключ, неверный JSON и т.д.)</td></tr>
+                 <tr><td><strong>Пример ответа</strong></td><td><code>{"results": {"email": {"valid": false, "error": {"code": "INVALID_FORMAT"}}}}</code></td><td><code>{"error": {"code": 401, "message": "Invalid or missing API key"}}</code></td></tr>
+            </tbody>
+         </table>
+    </div>
+    
+    <h3>Таблица возможных ошибок (HTTP-статусы)</h3>
+    <div class="table-wrapper">
+         <table>
+            <thead>
+                 <tr><th>HTTP-статус</th><th>Код ошибки</th><th>Описание</th><th>Что делать</th></tr>
+            </thead>
+            <tbody>
+                 <tr><td>400 Bad Request</td><td>MISSING_FIELD</td><td>В запросе отсутствует обязательное поле (например, data).</td><td>Проверьте структуру JSON. Убедитесь, что все обязательные поля переданы.</td></tr>
+                 <tr><td>400 Bad Request</td><td>INVALID_JSON</td><td>Тело запроса содержит невалидный JSON.</td><td>Проверьте синтаксис JSON (кавычки, запятые, скобки). Используйте валидатор JSON, например <a href="https://jsonlint.com/">jsonlint.com</a>.</td></tr>
+                 <tr><td>401 Unauthorized</td><td>INVALID_API_KEY</td><td>API-ключ отсутствует, истёк или указан неверно.</td><td>Проверьте заголовок X-API-Key. Если ключ утерян, создайте новый в личном кабинете.</td></tr>
+                 <tr><td>500 Internal Server Error</td><td>INTERNAL_SERVER_ERROR</td><td>Внутренняя ошибка сервера.</td><td>Повторите запрос через несколько секунд. Если ошибка повторяется, обратитесь в службу поддержки.</td></tr>
+                 <tr><td>503 Service Unavailable</td><td>SERVICE_UNAVAILABLE</td><td>Сервис временно недоступен (технические работы).</td><td>Подождите несколько минут и повторите запрос. Проверьте статус сервиса на сайте.</td></tr>
+            </tbody>
+         </table>
+    </div>
+    
+    <h2>Обращение в службу поддержки</h2>
+    <p>Если вы столкнулись с ошибкой, которая не описана в таблице, или проблема повторяется после повторной попытки, обратитесь в службу поддержки CleanBusiness.</p>
+    <p>При обращении укажите:</p>
+    <ul>
+        <li>Текст запроса, который вы отправляли.</li>
+        <li>Текст ответа с ошибкой.</li>
+    </ul>
+    <p>Способы связи:</p>
+    <ul>
+        <li>Email: <a href="mailto:support@cleanbusiness.ru">support@cleanbusiness.ru</a></li>
+        <li>Чат на сайте: <a href="https://cleanbusiness.ru/support">https://cleanbusiness.ru/support</a> (доступен с 10:00 до 19:00 МСК)</li>
+    </ul>
+    <p>Служба поддержки отвечает в течение 24 часов в рабочие дни.</p>
+    
+    <footer>
+        Инструкция создана для вымышленного API. CleanBusiness API не существует в реальности.
+    </footer>
+</div>
+</body>
+</html>
